@@ -1,11 +1,11 @@
 
-object PE1MultiplesOf3Or5 {
+object PE1MultiplesOf3or5 {
 
-  def findSum(below: Int): Int = {
+  def sumOfMultiplesOf3or5Below(below: Int): Int = {
     findSum(below, 3, 5)
   }
 
-  def findSum(below: Int, multiples: Int*) = {
+  private def findSum(below: Int, multiples: Int*) = {
     if (below <= 0) 0 else {
       (for {
           below <- 0.to(below - 1)
