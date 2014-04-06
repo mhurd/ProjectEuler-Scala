@@ -1,4 +1,3 @@
-
 object PE1MultiplesOf3or5 {
 
   def sumOfMultiplesOf3or5Below(below: Int): Int = {

@@ -2,4 +2,4 @@ name := "ProjectEuler-Scala"
 
 version := "1.0"
 
-libraryDependencies += "org.specs2" %% "specs2" % "2.3.10" % "test"
+libraryDependencies += "org.scalatest" % "scalatest_2.10" % "2.1.3" % "test"
