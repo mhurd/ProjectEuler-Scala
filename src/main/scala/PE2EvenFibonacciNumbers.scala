@@ -1,11 +1,18 @@
+import scala.collection.mutable
+
 object PE2EvenFibonacciNumbers {
 
-  // stream of fib numbers but starts with 0 1 1 (the seeds to the scan)
-  // we will remove these when taking the fibs from the stream
-  val fibs: Stream[Int] = 0 #:: fibs.scanLeft(1)(_ + _)
+  // usual stream of fib numbers starts with 0 1 1 2 3 5 8 ...
+  // however this problem assumes that it starts 1 2 3 5 8 13 ...
+  val fibs: Stream[BigInt] = BigInt(1) #:: fibs.scanLeft(BigInt(2))(_ + _)
 
-  def fib(n: Int): Int =
-    if (n <= 0) 0 else fibs.take(n + 2).drop(2).last
+  def fib(n: Int): BigInt = {
+    val memo = (n: Int) => {
+      val cache = mutable.Map[BigInt, BigInt]()
+      cache.getOrElseUpdate(n, if (n <= 0) 0 else fibs.take(n).last)
+    }
+    memo(n)
+  }
 
   def sumOfEvenFibonacciNumbersBelow(below: Int) =
     fibs.takeWhile(_ < below).filter(_ % 2 == 0).reduceLeft(_ + _)
