@@ -10,9 +10,12 @@ class PE3LargestPrimeFactorSpec extends FlatSpec with Matchers {
     PE3LargestPrimeFactor.primes(10) should be (List(2, 3, 5, 7, 11, 13, 17, 19, 23, 29))
   }
 
-  "The 'trailDivision' method" should "return the correct primes factors of the argument" in {
-    PE3LargestPrimeFactor.trialDivision(7) should be (List(7))
-    PE3LargestPrimeFactor.trialDivision(21) should be (List(3, 7))
+  "The 'largestPrimeFactorOf' method" should "return the correct largest primes factor of the argument" in {
+    PE3LargestPrimeFactor.largestPrimeFactorOf(1) should be (1)
+    PE3LargestPrimeFactor.largestPrimeFactorOf(2) should be (2)
+    PE3LargestPrimeFactor.largestPrimeFactorOf(21) should be (7)
+    PE3LargestPrimeFactor.largestPrimeFactorOf(35) should be (7)
+    //PE3LargestPrimeFactor.largestPrimeFactorOf(600851475143l) should be (7)
   }
 
 }
