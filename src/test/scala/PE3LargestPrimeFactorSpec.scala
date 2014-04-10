@@ -11,11 +11,15 @@ class PE3LargestPrimeFactorSpec extends FlatSpec with Matchers {
   }
 
   "The 'largestPrimeFactorOf' method" should "return the correct largest primes factor of the argument" in {
-    PE3LargestPrimeFactor.largestPrimeFactorOf(1) should be (1)
+    // Sieve of Eratosthenes is too slow for the large numbers - at least this implementation is
     PE3LargestPrimeFactor.largestPrimeFactorOf(2) should be (2)
     PE3LargestPrimeFactor.largestPrimeFactorOf(21) should be (7)
     PE3LargestPrimeFactor.largestPrimeFactorOf(35) should be (7)
-    //PE3LargestPrimeFactor.largestPrimeFactorOf(600851475143l) should be (7)
+    // use the fast method
+    PE3LargestPrimeFactor.fastLargestPrimeFactorOf(2) should be (2)
+    PE3LargestPrimeFactor.fastLargestPrimeFactorOf(21) should be (7)
+    PE3LargestPrimeFactor.fastLargestPrimeFactorOf(35) should be (7)
+    PE3LargestPrimeFactor.fastLargestPrimeFactorOf(600851475143l) should be (6857)
   }
 
 }
