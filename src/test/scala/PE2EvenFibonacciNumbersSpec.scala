@@ -3,7 +3,7 @@ import org.scalatest._
 class PE2EvenFibonacciNumbersSpec extends FlatSpec with Matchers {
 
   "Fib method" should "handle zeros" in {
-    PE2EvenFibonacciNumbers.fib(0) should be (0)
+    PE2EvenFibonacciNumbers.fib(0) should be(0)
   }
 
   it should "return the correct values for some example cases" in {
