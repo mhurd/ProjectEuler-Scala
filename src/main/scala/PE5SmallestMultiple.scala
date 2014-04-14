@@ -1,8 +1,6 @@
-object PE5SmallestMultiple {
+import utils.Primes
 
-  private def naturalNumberStream(n: Long): Stream[Long] = {
-    Stream.cons(n, naturalNumberStream(n + 1))
-  }
+object PE5SmallestMultiple {
 
   def isEven(n: Long): Boolean = n % 2 == 0
 
@@ -16,7 +14,7 @@ object PE5SmallestMultiple {
 
   def smallestEvenlyDivisibleNumberForAll(r: Range): Int = {
     // remember to add 1 to the result as the index is 0 based
-    naturalNumberStream(1).iterator.indexWhere(n => shortCutEvenOdd(r, n) &&  r.forall(rn => n % rn == 0))+1
+    Primes.naturalNumberStream(1).iterator.indexWhere(n => shortCutEvenOdd(r, n) &&  r.forall(rn => n % rn == 0))+1
   }
 
 }

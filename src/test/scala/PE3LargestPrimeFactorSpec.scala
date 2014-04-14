@@ -2,14 +2,6 @@ import org.scalatest._
 
 class PE3LargestPrimeFactorSpec extends FlatSpec with Matchers {
 
-  "The 'primes' method" should "return the correct number of primes" in {
-    PE3LargestPrimeFactor.primes(1) should be(List(2))
-    PE3LargestPrimeFactor.primes(2) should be(List(2, 3))
-    PE3LargestPrimeFactor.primes(3) should be(List(2, 3, 5))
-    PE3LargestPrimeFactor.primes(5) should be(List(2, 3, 5, 7, 11))
-    PE3LargestPrimeFactor.primes(10) should be(List(2, 3, 5, 7, 11, 13, 17, 19, 23, 29))
-  }
-
   // Sieve method - find primes and then find the largest that is a factor
   // doesn't work though, uses too much heap
 
