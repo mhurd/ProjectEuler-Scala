@@ -1,10 +1,10 @@
 import org.scalatest._
 
-class PE8LargestProductInASeriesSpec extends FlatSpec with Matchers {
+class PE008LargestProductInASeriesSpec extends FlatSpec with Matchers {
 
   "The 'findGreatestProduct' method" should "return the correct value" in {
-    PE8LargestProductInASeries.findGreatestProduct("123456789901234", 2) should be(List(("99", 81)))
-    PE8LargestProductInASeries.findGreatestProduct("7316717653133062491922511967" +
+    PE008LargestProductInASeries.findGreatestProduct("123456789901234", 2) should be(List(("99", 81)))
+    PE008LargestProductInASeries.findGreatestProduct("7316717653133062491922511967" +
       "4426574742355349194934969835203127745063262395783180169848018694788518438" +
       "5861560789112949495459501737958331952853208805511125406987471585238630507" +
       "1569329096329522744304355766896648950445244523161731856403098711121722383" +

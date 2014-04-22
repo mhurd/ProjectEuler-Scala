@@ -1,6 +1,12 @@
 import utils.Primes
 
-object PE5SmallestMultiple {
+/**
+ * 2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.
+ * What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
+ *
+ * https://projecteuler.net/problem=5
+ */
+object PE005SmallestMultiple {
 
   def isEven(n: Long): Boolean = n % 2 == 0
 

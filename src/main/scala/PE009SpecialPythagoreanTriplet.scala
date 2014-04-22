@@ -1,4 +1,13 @@
-object PE9SpecialPythagoreanTriplet {
+/**
+ * A Pythagorean triplet is a set of three natural numbers, a < b < c, for which,
+ * pow(a, 2) + pow(b, 2) = pow(c, 2)
+ * For example, pow(3, 2) + pow(4, 2) = 9 + 16 = 25 = pow(5, 2).
+ * There exists exactly one Pythagorean triplet for which a + b + c = 1000.
+ * Find the product abc.
+ *
+ * https://projecteuler.net/problem=9
+ */
+object PE009SpecialPythagoreanTriplet {
 
   // A Pythagorean triplet is a set of three natural numbers, a < b < c, for which,
   //
