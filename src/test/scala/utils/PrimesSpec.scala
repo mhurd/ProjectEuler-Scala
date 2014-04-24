@@ -46,13 +46,44 @@ class PrimesSpec extends FlatSpec with Matchers {
     (Primes.fermatsLittleTheoremIsPrime(23)) should be(true)
     (Primes.fermatsLittleTheoremIsPrime(29)) should be(true)
     (Primes.fermatsLittleTheoremIsPrime(30)) should be(false)
-    // larger primes
-    (Primes.fermatsLittleTheoremIsPrime(1301081)) should be(true)
-    (Primes.fermatsLittleTheoremIsPrime(179426081)) should be(true)
-    (Primes.fermatsLittleTheoremIsPrime(2038076783)) should be(true)
-    (Primes.fermatsLittleTheoremIsPrime(1301089)) should be(false)
-    (Primes.fermatsLittleTheoremIsPrime(179426090)) should be(false)
-    (Primes.fermatsLittleTheoremIsPrime(2038076795)) should be(false)
+  }
+
+  "The 'getPowers'" should "function correctly" in {
+    Primes.getPowers(6) should be (List(2,4))
+    Primes.getPowers(7) should be (List(1,2,4))
+    Primes.getPowers(8) should be (List(8))
+  }
+
+  private def timeInSeconds(f: () => Unit, repetitions: Int): Double = {
+    val start1: Double = System.currentTimeMillis()
+    (1 to repetitions).foreach(_ => f())
+    val stop1: Double = System.currentTimeMillis()
+    (stop1 - start1) / 1000
+  }
+
+  "The 'raiseToPower'" should "function correctly compared to .pow for large exponents" in {
+    val num = 7
+    val bigExp = 200000
+    val repetitions = 4
+    Primes.raiseToPower(num, bigExp) should be (BigInt(num).pow(bigExp))
+    // check that it takes a comparable time (+/- 10%), can't seem to get it faster which makes sense
+    // its slower for smaller exponents
+    val raiseToPowerTime = timeInSeconds(() => Primes.raiseToPower(num, bigExp), repetitions)
+    println("raiseToPower time = " + raiseToPowerTime + " seconds")
+    val powTime = timeInSeconds(() =>  BigInt(num).pow(bigExp), repetitions)
+    println("pow time = " + powTime  + " seconds");
+    val ratio = raiseToPowerTime/powTime
+    println("For " + num + " ^ " + bigExp + ", raiseToPower's time taken ratio vs. pow is " + ratio)
+    ratio <= 1.10 should be (true)
+  }
+
+  "The 'primeIterator'" should "function correctly" in {
+    val itr = Primes.primeIterator()
+    itr.next() should be(2)
+    itr.next() should be(3)
+    itr.next() should be(5)
+    itr.next() should be(7)
+    itr.next() should be(11)
   }
 
 }
