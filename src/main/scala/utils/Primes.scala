@@ -8,23 +8,25 @@ object Primes {
   lazy val seedPrimes = sieveOfEratosthenes(naturalNumberStream(2)).take(100).toList
   lazy val rand = new Random()
 
+  // Brute force method
   def isPrime(n: Long): Boolean = {
-    if (n == 1 || n == 2 || n == 3 || n == 5 || n == 7 || n == 11) true else {
-      if (n % 2 == 0 || n % 3 == 0 || n % 5 == 0 || n % 7 == 0 || n % 11 == 0) false
-      else {
-        val maxDivisor = Math.sqrt(n).toInt
-        var divisor = 13
-        var isPrime = true
-        while (divisor <= maxDivisor && isPrime) {
-          if (n % divisor == 0) {
-            isPrime = false
-          } else {
-            divisor = divisor + 1
-          }
+    val maxDivisor = Math.sqrt(n).toInt
+    @tailrec
+    def inner(currentDivisor: Long): Boolean = {
+      if (currentDivisor > maxDivisor) {
+        true
+      } else {
+        if (n % currentDivisor == 0) {
+          false
+        } else {
+          inner(currentDivisor + 1)
         }
-        isPrime
       }
     }
+    // shortcut some obvious cases
+    if (n == 2 || n == 3 || n == 5 || n == 7 || n == 11) true
+    else if (n == 1 || n % 2 == 0 || n % 3 == 0 || n % 5 == 0 || n % 7 == 0 || n % 11 == 0) false
+    else inner(13)
   }
 
   def primeIterator() = new Iterator[Long] {
