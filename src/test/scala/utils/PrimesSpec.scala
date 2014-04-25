@@ -96,11 +96,11 @@ class PrimesSpec extends FlatSpec with Matchers {
 
   "The 'raiseToPower'" should "function correctly compared to .pow for large exponents" in {
     val num = 7
-    val bigExp = 200000
+    val bigExp = 500000
     val repetitions = 4
     Primes.raiseToPower(num, bigExp) should be (BigInt(num).pow(bigExp))
-    // check that it takes a comparable time (+/- 10%), can't seem to get it faster which makes sense
-    // its slower for smaller exponents
+    // check that it takes a comparable time (+/- 10%), can't seem to get it much faster which makes sense.
+    // its slower for smaller exponents.
     val raiseToPowerTime = timeInSeconds(() => Primes.raiseToPower(num, bigExp), repetitions)
     println("raiseToPower time = " + raiseToPowerTime + " seconds")
     val powTime = timeInSeconds(() =>  BigInt(num).pow(bigExp), repetitions)

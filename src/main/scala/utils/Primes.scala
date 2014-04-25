@@ -57,20 +57,19 @@ object Primes {
 
   def raiseToPower(n: BigInt, p: Int): BigInt = {
     val powers = getPowers(p)
-    var result = ONE
-    var prevResult = n
-    var i = 1
-    var powerOf2 = TWO.pow(i)
-    while (powerOf2 < p) {
-      val r = prevResult.pow(2)
-      prevResult = r
-      if (powers.contains(powerOf2)) {
-        result = result * r
+    @tailrec
+    def inner(previousResult: BigInt, total: BigInt, currentPowerOf2: BigInt): BigInt = {
+      if (currentPowerOf2 >= p) total else {
+        val currentResult = previousResult.pow(2)
+        val nextPowerOf2 = currentPowerOf2 * 2
+        if (powers.contains(currentPowerOf2)) {
+          inner(currentResult, total * currentResult, nextPowerOf2)
+        } else {
+          inner(currentResult, total, nextPowerOf2)
+        }
       }
-      i = i+1
-      powerOf2 = TWO.pow(i)
     }
-    result
+    inner(n, ONE, TWO)
   }
 
   def fermatsLittleTheoremIsPrime(n: Int): Boolean = {
