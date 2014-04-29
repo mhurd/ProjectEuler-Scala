@@ -1,6 +1,7 @@
 import org.scalatest._
+import utils.Timer
 
-class PE011LargestProductInAGridSpec extends FlatSpec with Matchers {
+class PE011LargestProductInAGridSpec extends FlatSpec with Matchers with Timer {
 
   // PE011LargestProductInAGrid.maxX(2, grid) should be(4851)
 
@@ -21,6 +22,7 @@ class PE011LargestProductInAGridSpec extends FlatSpec with Matchers {
   }
 
   "The 'largestProduct' method" should "return the correct answer for the Project Euler question" in {
+    println("Answer takes " + timeInSeconds(() => PE011LargestProductInAGrid.largestProduct(), 3) + " seconds")
     PE011LargestProductInAGrid.largestProduct() should be(70600674)
   }
 
