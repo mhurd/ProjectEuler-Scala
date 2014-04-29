@@ -56,6 +56,8 @@ object PE011LargestProductInAGrid {
   }
 
   def maxSEDiagonals(length: Int, subGrid: List[List[Int]]): Long = {
+    // shift each row over such that the diagonals a line up in a vertical stripe
+    // pad with 0's and then transpose and use the usual max in row function
     maxX(length, subGrid.map(row => {
       val shift = subGrid.indexOf(row)
       row.slice(shift, row.length) ++ List.fill(shift)(0)
@@ -63,6 +65,8 @@ object PE011LargestProductInAGrid {
   }
 
   def maxSWDiagonals(length: Int, subGrid: List[List[Int]]): Long = {
+    // shift each row over such that the diagonals a line up in a vertical stripe
+    // pad with 0's and then transpose and use the usual max in row function
     maxX(length, subGrid.map(row => {
       val shift = subGrid.indexOf(row)
       List.fill(shift)(0) ++ row.slice(0, row.length - shift)
