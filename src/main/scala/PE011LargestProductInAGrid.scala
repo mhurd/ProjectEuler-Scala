@@ -29,6 +29,9 @@ object PE011LargestProductInAGrid {
                     List(20, 73, 35, 29, 78, 31, 90,  1, 74, 31, 49, 71, 48, 86, 81, 16, 23, 57,  5, 54),
                     List(01, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52,  1, 89, 19, 67, 48) )
 
+  // Could obviously do this using coordinate offsets and an iteration through the matrix but lets try a
+  // difference method that works by deforming the matrix. This is unlikely to be efficient! :-)
+
   def maxInRow(length: Int, row: List[Int]): Long = {
     //println("Evaluating row: " + row)
     row.sliding(length).map(
