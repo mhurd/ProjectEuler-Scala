@@ -121,6 +121,7 @@ class PrimesSpec extends FlatSpec with Matchers with Timer {
     Primes.numberOfFactorsOf(21) should be(4)
     Primes.numberOfFactorsOf(28) should be(6)
     Primes.numberOfFactorsOf(30) should be(8)
+    Primes.numberOfFactorsOf(56) should be(8)
     Primes.numberOfFactorsOf(72) should be(12)
     Primes.numberOfFactorsOf(156) should be(12)
     Primes.numberOfFactorsOf(15668) should be(6)

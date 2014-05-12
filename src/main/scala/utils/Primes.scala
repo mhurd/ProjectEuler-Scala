@@ -144,17 +144,16 @@ object Primes {
   }
 
   def numberOfFactorsOf(n: Long): Long = {
-    //println("numberOfFactorsOf " + n)
-    if (n == 1) 1 else {
+    if (n == 1) 1 else { // there is 1 factor of 1
       def inner(n: Long, primeFactors: List[Long]): List[Long] = {
-        //println("   checking " + n + ", primeFactors = " + primeFactors)
         val firstPrimeFactor = findFirstPrimeFactor(n)
-        //println("   first prime factor = " + firstPrimeFactor)
         val rem: Long = n / firstPrimeFactor
         if (rem == 1) n :: primeFactors else inner(rem, firstPrimeFactor :: primeFactors)
       }
       val primeFactors = inner(n, List())
-      //println("   all prime factors = " + primeFactors)
+      // group the prime factors so we can work out the exp of each prime in the factorization.
+      // We can then use the rule: 2^3 * 7^1 = 56,
+      // (multiply the exponents + 1) 3+1 * 1+1 = 8 factors of 56
       primeFactors.groupBy(v => v).map(_._2.size + 1) match {
         case Nil => 1
         case x :: Nil => x
