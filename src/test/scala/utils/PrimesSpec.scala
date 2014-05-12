@@ -97,7 +97,7 @@ class PrimesSpec extends FlatSpec with Matchers {
   "The 'raiseToPower'" should "function correctly compared to .pow for large exponents" in {
     val num = 7
     val bigExp = 500000
-    val repetitions = 4
+    val repetitions = 2
     Primes.raiseToPower(num, bigExp) should be (BigInt(num).pow(bigExp))
     // check that it takes a comparable time (+/- 10%), can't seem to get it much faster which makes sense.
     // its slower for smaller exponents.
@@ -117,6 +117,21 @@ class PrimesSpec extends FlatSpec with Matchers {
     itr.next() should be(5)
     itr.next() should be(7)
     itr.next() should be(11)
+  }
+
+  "The 'numberOfFactorsOf' method" should "return all the factors of the supplied number" in {
+    Primes.numberOfFactorsOf(1) should be(1)
+    Primes.numberOfFactorsOf(3) should be(2)
+    Primes.numberOfFactorsOf(6) should be(4)
+    Primes.numberOfFactorsOf(10) should be(4)
+    Primes.numberOfFactorsOf(15) should be(4)
+    Primes.numberOfFactorsOf(21) should be(4)
+    Primes.numberOfFactorsOf(28) should be(6)
+    Primes.numberOfFactorsOf(30) should be(8)
+    Primes.numberOfFactorsOf(72) should be(12)
+    Primes.numberOfFactorsOf(156) should be(12)
+    Primes.numberOfFactorsOf(15668) should be(6)
+    Primes.numberOfFactorsOf(1566877) should be(8)
   }
 
 }

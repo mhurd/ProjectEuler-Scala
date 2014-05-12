@@ -132,4 +132,35 @@ object Primes {
     Stream.cons(naturalNumbers.head, sieveOfEratosthenes((naturalNumbers tail) filter (x => x % naturalNumbers.head != 0)))
   }
 
+  def primeFactorsOf(n: Long): List[Long] = {
+    Primes.primes().iterator.takeWhile(_ <= Math.sqrt(n) + 10).filter(n % _ == 0).toList
+  }
+
+  def findFirstPrimeFactor(n: Long): Long = {
+    if (isPrime(n)) n else {
+      // ok to 'get' from the option, every (non-prime) integer has a prime factor!
+      Primes.primes().iterator.find(p => p <= Math.sqrt(n) + 10 && n % p == 0).get
+    }
+  }
+
+  def numberOfFactorsOf(n: Long): Long = {
+    //println("numberOfFactorsOf " + n)
+    if (n == 1) 1 else {
+      def inner(n: Long, primeFactors: List[Long]): List[Long] = {
+        //println("   checking " + n + ", primeFactors = " + primeFactors)
+        val firstPrimeFactor = findFirstPrimeFactor(n)
+        //println("   first prime factor = " + firstPrimeFactor)
+        val rem: Long = n / firstPrimeFactor
+        if (rem == 1) n :: primeFactors else inner(rem, firstPrimeFactor :: primeFactors)
+      }
+      val primeFactors = inner(n, List())
+      //println("   all prime factors = " + primeFactors)
+      primeFactors.groupBy(v => v).map(_._2.size + 1) match {
+        case Nil => 1
+        case x :: Nil => x
+        case xs => xs.reduce(_ * _)
+      }
+    }
+  }
+
 }
