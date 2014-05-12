@@ -29,34 +29,28 @@ object PE011LargestProductInAGrid {
                     Array(20, 73, 35, 29, 78, 31, 90,  1, 74, 31, 49, 71, 48, 86, 81, 16, 23, 57,  5, 54),
                     Array(01, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52,  1, 89, 19, 67, 48) )
 
-
-  // find the horizontal sequences
-  def maxX(length: Int, grid: Array[Array[Int]]): Long = {
-    grid.map(row => {
-        row.sliding(length).map(
-          s => {
-            if (s.length == length) s.reduceLeft(_*_) else 0
-          }
-        ).max
-      }
-    ).max
+  def largestProduct(): Long = {
+    val length = 4
+    processGrid(problemGrid, length)
   }
 
-  // find the vertical sequences
-  def maxY(length: Int, grid: Array[Array[Int]]): Long = {
-    maxX(length, grid.transpose)
+  def processGrid(g: Array[Array[Int]], length: Int): Long = {
+    (for {
+      x <- 0 to g(0).length-1
+      y <- 0 to g.length-1
+    } yield processCoord(g, length, x, y)).max
   }
 
-  // find the vertical sequences
-  def maxSEDiagonals(length: Int, grid: Array[Array[Int]]): Long = {
-    maxY(length, grid.map(row => {
-      val shift = grid.indexOf(row) % grid.length
-      row.slice(shift, row.length)
-    }))
+  def processCoord(g: Array[Array[Int]], length: Int, x: Int, y: Int): Long = {
+    // go right
+    val r = (0 to length-1).map(i => if (x + i < g(y).length) g(y)(x+i) else 0)
+    // go down
+    val d = (0 to length-1).map(i => if (y + i < g.length) g(y + i)(x) else 0)
+     // south-east diagonal
+    val se = (0 to length-1).map(i => if (x + i < g(0).length && y + i < g.length) g(y + i)(x + i) else 0)
+    // south-west diagonal
+    val sw = (0 to length-1).map(i => if (x - i > 0 && y + i < g.length) g(y + i)(x - i) else 0)
+    Array(r, d, se, sw).filter(_.length == length).map(_.reduceLeft(_*_)).max
   }
-
-  def largestProduct(length: Int, grid: Array[Array[Int]]): Long = {
-    List(maxX(length, grid), maxY(length, grid)).max
-  }
-
+  
 }

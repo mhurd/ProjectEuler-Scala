@@ -2,7 +2,7 @@ package utils
 
 import org.scalatest._
 
-class PrimesSpec extends FlatSpec with Matchers {
+class PrimesSpec extends FlatSpec with Matchers with Timer {
 
   "The 'primes' method" should "return the correct number of primes" in {
     Primes.primes().take(1) should be(List(2))
@@ -85,13 +85,6 @@ class PrimesSpec extends FlatSpec with Matchers {
     Primes.getPowers(6) should be (List(2,4))
     Primes.getPowers(7) should be (List(1,2,4))
     Primes.getPowers(8) should be (List(8))
-  }
-
-  private def timeInSeconds(f: () => Unit, repetitions: Int): Double = {
-    val start1: Double = System.currentTimeMillis()
-    (1 to repetitions).foreach(_ => f())
-    val stop1: Double = System.currentTimeMillis()
-    (stop1 - start1) / 1000
   }
 
   "The 'raiseToPower'" should "function correctly compared to .pow for large exponents" in {
