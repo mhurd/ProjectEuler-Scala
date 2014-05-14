@@ -1,6 +1,5 @@
 import scala.annotation.tailrec
 import utils.Timer
-import scala.collection.mutable
 
 /**
  * The following iterative sequence is defined for the set of positive integers:
@@ -34,7 +33,7 @@ object PE014LongestCollatzSequence extends Timer {
   }
 
   def solve(maxN: Long, memo: Boolean) : Long = {
-    Range.Long.inclusive(1, maxN, 1).map(n => {
+    Range.Long(1, maxN, 1).map(n => {
       (n, findCollatzSequenceLength(n))
     }).maxBy(t => t._2)._1
   }
