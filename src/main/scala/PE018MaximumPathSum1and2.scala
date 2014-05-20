@@ -55,14 +55,13 @@ object PE018MaximumPathSum1and2 extends Timer {
       Array(53,71,44,65,25,43,91,52,97,51,14),
       Array(70,11,33,28,77,73,17,78,39,68,17,57),
       Array(91,71,52,38,17,14,91,43,58,50,27,29,48),
-      Array(63,66,04,68,89,53,67,30,73,16,69,87,40,31),
-      Array(04,62,98,27,23,9,70,98,73,93,38,53,60,04,23)
+      Array(63,66,4,68,89,53,67,30,73,16,69,87,40,31),
+      Array(4,62,98,27,23,9,70,98,73,93,38,53,60,4,23)
   )
 
   def solveForProblem67(): Int = {
     val source = Source.fromURL(getClass.getResource("PE067-triangle.txt"))
-    val foo = source.getLines().map(line => line.split(" ").map(_.toInt))
-    solve(foo.toArray)
+    solve(source.getLines().map(_.split(" ").map(_.toInt)).toArray)
   }
 
   def solveForProblem18(): Int = {
@@ -74,19 +73,19 @@ object PE018MaximumPathSum1and2 extends Timer {
     val reverseTriangle = triangle.reverse
 
     @tailrec
-    def inner(index: Int, tally: Array[Int]): Array[Int] = {
-      if (index == reverseTriangle.length) tally else {
-        val newTally = reverseTriangle(index).zipWithIndex.map(t => {
-          t._1 + Math.max(tally(t._2), tally(t._2 + 1))
+    def inner(rowIndex: Int, tally: Array[Int]): Array[Int] = {
+      if (rowIndex == reverseTriangle.length) tally else {
+        val newTally = reverseTriangle(rowIndex).zipWithIndex.map({
+          case (value, index) => value + Math.max(tally(index), tally(index + 1))
         })
-        inner(index+1, newTally)
+        inner(rowIndex + 1, newTally)
       }
     }
     // start at the second row from the bottom
     // work upwards adding the max from the previous row's pair of
     // options to the current value on the row - effectively totaling up the
     // maximum route to the single top node where the remaining value is the max route.
-    inner(1, reverseTriangle.head).max
+    inner(1, reverseTriangle.head).head
   }
 
 }
