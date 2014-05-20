@@ -82,8 +82,10 @@ object PE018MaximumPathSum1and2 extends Timer {
         inner(index+1, newTally)
       }
     }
-    // start at the bottom
-
+    // start at the second row from the bottom
+    // work upwards adding the max from the previous row's pair of
+    // options to the current value on the row - effectively totaling up the
+    // maximum route to the single top node where the remaining value is the max route.
     inner(1, reverseTriangle.head).max
   }
 
