@@ -13,14 +13,10 @@ object Primes {
     val maxDivisor = Math.sqrt(n).toInt
     @tailrec
     def inner(currentDivisor: Long): Boolean = {
-      if (currentDivisor > maxDivisor) {
-        true
-      } else {
-        if (n % currentDivisor == 0) {
-          false
-        } else {
-          inner(currentDivisor + 1)
-        }
+      currentDivisor match {
+        case divisor if divisor > maxDivisor => true
+        case divisor if n % divisor == 0 => false
+        case divisor => inner(divisor + 1)
       }
     }
     // shortcut some obvious cases
@@ -50,8 +46,8 @@ object Primes {
   val TWO = BigInt(2)
 
   def getPowers(n: Int): List[Int] = {
-    (0 to BigInt(n).bitLength).map(i => {
-      if (BigInt(n).testBit(i)) TWO.pow(i).intValue() else 0
+    (0 to BigInt(n).bitLength).map(exp => {
+      if (BigInt(n).testBit(exp)) TWO.pow(exp).intValue() else 0
     }).toList.filter(_ != 0)
   }
 
@@ -73,30 +69,27 @@ object Primes {
   }
 
   def fermatsLittleTheoremIsPrime(n: Int): Boolean = {
-    // shortcut the smaller primes
-    if (n == 1) false
-    else if (List(2,3,5,7,11,13,17,19,23,29).contains(n)) true
-    else if ((n % 2 == 0) || (n % 3 == 0) || (n % 5 == 0) || (n % 7 == 0)) {
-      false // its dividable by one of the base primes, 2, 3, 5, 7
-    } else {
+    n match {
+      case 1 => false
+      case num if List(2, 3, 5, 7, 11, 13, 17, 19, 23, 29).contains(num) => true
+      // is it dividable by one of the base primes, 2, 3, 5, 7
+      case num if (n % 2 == 0) || (n % 3 == 0) || (n % 5 == 0) || (n % 7 == 0) => false
       // ok do the long check
-      (1 to 10).map(f = _ => {
-        witnessAsNotPrime(n)
-      }).forall(_ == false)
+      case num => (1 to 10).map(witnessAsNotPrime(_)).forall(!_)
     }
   }
 
   def witnessAsNotPrime(n: Integer): Boolean = {
-    val l = Math.abs(rand.nextInt(n))+1
-    BigInt(l).pow(n-1) % BigInt(n) != BigInt(1) // <-- this is slow for large numbers
+    val r = Math.abs(rand.nextInt(n)) + 1
+    BigInt(r).pow(n - 1) % BigInt(n) != BigInt(1) // <-- this is slow for large numbers
   }
 
-  // Use some tricks here, pre-compute the first 100 primes an use these
+  // Use some tricks here, pre-compute the first 100 primes and use these
   // to quickly check if a candidate number is composite otherwise proceed to
   // the lengthy check only if we're still not sure.
   def nthPrime(n: Int): Long = {
     if (n <= seedPrimes.size) {
-      seedPrimes.drop(n-1).head
+      seedPrimes.drop(n - 1).head
     } else {
       @tailrec
       def search(primes: List[Long], candidate: Long): Long = {
