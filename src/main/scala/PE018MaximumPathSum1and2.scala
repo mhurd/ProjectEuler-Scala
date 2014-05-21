@@ -36,7 +36,7 @@ import utils.Timer
  *
  * https://projecteuler.net/problem=18
  * &
- * https://projecteuler.net/problem=19 (uses main/resources/PE67-triangle.txt)
+ * https://projecteuler.net/problem=67 (uses main/resources/PE67-triangle.txt)
  *
  */
 object PE018MaximumPathSum1and2 extends Timer {
